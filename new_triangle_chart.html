@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫彩三角形柱状图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        #chart-container {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart-container"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('chart-container'));
+
+        var option = {
+            title: {
+                text: '销售业绩统计',
+                textStyle: {
+                    fontSize: 18,
+                    fontWeight: 'bold'
+                }
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: '{b}: {c}'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['一月', '二月', '三月', '四月', '五月', '六月'],
+                axisLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '销售额（万元）',
+                nameTextStyle: {
+                    padding: [0, 0, 0, 40]
+                }
+            },
+            series: [{
+                name: '销售额',
+                type: 'custom',
+                animationDuration: 1000,
+                animationEasing: 'cubicOut',
+                renderItem: function (params, api) {
+                    var x = api.value(0);
+                    var y = api.value(1);
+                    var points = [
+                        [x - 0.25, 0],
+                        [x + 0.25, 0],
+                        [x, y]
+                    ];
+                    return {
+                        type: 'polygon',
+                        shape: {
+                            points: points
+                        },
+                        style: api.style({
+                            fill: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#83bff6'
+                            }, {
+                                offset: 0.5,
+                                color: '#188df0'
+                            }, {
+                                offset: 1,
+                                color: '#188df0'
+                            }]),
+                            shadowColor: 'rgba(0, 0, 0, 0.3)',
+                            shadowBlur: 10
+                        })
+                    };
+                },
+                data: [
+                    [0, 120],
+                    [1, 200],
+                    [2, 150],
+                    [3, 180],
+                    [4, 230],
+                    [5, 180]
+                ]
+            }]
+        };
+
+        myChart.setOption(option);
+
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,73 @@
+<!--
+ * @Author: wenzheng 528604031@qq.com
+ * @Date: 2025-02-27 16:48:23
+ * @LastEditors: wenzheng 528604031@qq.com
+ * @LastEditTime: 2025-02-27 17:01:29
+ * @FilePath: \claude_demo\zzz.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角形柱状图示例</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <style>
+        #main {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            title: {
+                text: '数据统计'
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+                data: ['9月', '10月', '11月', '12月']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                name: '数据',
+                type: 'custom',
+                renderItem: function (params, api) {
+                    var x = api.value(0);
+                    var y = api.value(1);
+                    var points = [
+                        [x - 0.3, 0],  // 改为更小的值使三角形更窄
+                        [x + 0.3, 0],
+                        [x, y]
+                    ];
+                    return {
+                        type: 'polygon',
+                        shape: {
+                            points: points
+                        },
+                        style: api.style({
+                            fill: '#4B9CD3'
+                        })
+                    };
+                },
+                data: [
+                    [0, 7],
+                    [1, 6],
+                    [2, 9],
+                    [3, 8]
+                ]
+            }]
+        };
+
+        myChart.setOption(option);
+    </script>
+</body>
+</html>

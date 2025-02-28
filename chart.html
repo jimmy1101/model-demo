@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts 面积图</title>
+    <!-- 引入 ECharts 文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 800px;height:400px;"></div>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            backgroundColor: '#0a2b55', // 深蓝色背景
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                top: '5%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['9月', '', '', '', '10月', '', '', '', '', '', '', ''],
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                axisLabel: {
+                    color: '#fff'
+                }
+            },
+            yAxis: {
+                type: 'value',
+                max: 12,
+                interval: 2,
+                axisLine: {
+                    lineStyle: {
+                        color: '#fff'
+                    }
+                },
+                axisLabel: {
+                    color: '#fff'
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    }
+                }
+            },
+            series: [
+                {
+                    name: '数据1',
+                    type: 'line',
+                    smooth: false,
+                    symbol: 'none',
+                    areaStyle: {
+                        color: '#0e86d4' // 深蓝色
+                    },
+                    lineStyle: {
+                        width: 0
+                    },
+                    data: [0, 7, 0, 0, 0, 6, 0, 0, 0, 8, 0, 9, 0],
+                    markPoint: {
+                        symbolSize: 65,
+                        data: [
+                            {coord: [1, 7], value: 7},
+                            {coord: [5, 6], value: 6},
+                            {coord: [9, 8], value: 8},
+                            {coord: [11, 9], value: 9}
+                        ],
+                        label: {
+                            fontSize: 16,
+                            color: '#00bfff'
+                        },
+                        itemStyle: {
+                            color: 'rgba(0,0,0,0)'
+                        }
+                    }
+                },
+                {
+                    name: '数据2',
+                    type: 'line',
+                    smooth: false,
+                    symbol: 'none',
+                    areaStyle: {
+                        color: '#00bfff' // 浅蓝色
+                    },
+                    lineStyle: {
+                        width: 0
+                    },
+                    data: [0, 0, 0, 5, 0, 0, 0, 9, 0, 0, 8, 0, 8],
+                    markPoint: {
+                        symbolSize: 65,
+                        data: [
+                            {coord: [3, 5], value: 5},
+                            {coord: [7, 9], value: 9},
+                            {coord: [10, 8], value: 8},
+                            {coord: [12, 8], value: 8}
+                        ],
+                        label: {
+                            fontSize: 16,
+                            color: '#00bfff'
+                        },
+                        itemStyle: {
+                            color: 'rgba(0,0,0,0)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+</body>
+</html>
